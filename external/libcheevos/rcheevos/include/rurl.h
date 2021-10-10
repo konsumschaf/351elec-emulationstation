@@ -1,5 +1,5 @@
-#ifndef RC_URL_H
-#define RC_URL_H
+#ifndef RURL_H
+#define RURL_H
 
 #include <stddef.h>
 
@@ -10,9 +10,6 @@ extern "C" {
 int rc_url_award_cheevo(char* buffer, size_t size, const char* user_name, const char* login_token, unsigned cheevo_id, int hardcore, const char* game_hash);
 
 int rc_url_submit_lboard(char* buffer, size_t size, const char* user_name, const char* login_token, unsigned lboard_id, int value);
-
-int rc_url_get_lboard_entries(char* buffer, size_t size, unsigned lboard_id, unsigned first_index, unsigned count);
-int rc_url_get_lboard_entries_near_user(char* buffer, size_t size, unsigned lboard_id, const char* user_name, unsigned count);
 
 int rc_url_get_gameid(char* buffer, size_t size, const char* hash);
 
@@ -35,4 +32,4 @@ int rc_url_ping(char* url_buffer, size_t url_buffer_size, char* post_buffer, siz
 }
 #endif
 
-#endif /* RC_URL_H */
+#endif /* RURL_H */
