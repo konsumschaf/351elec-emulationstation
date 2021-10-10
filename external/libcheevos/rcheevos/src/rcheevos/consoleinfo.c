@@ -300,8 +300,8 @@ static const rc_memory_region_t _rc_memory_regions_gameboy[] = {
     { 0x00FF80U, 0x00FFFEU, 0x00FF80U, RC_MEMORY_TYPE_SYSTEM_RAM, "Quick RAM"},
     { 0x00FFFFU, 0x00FFFFU, 0x00FFFFU, RC_MEMORY_TYPE_HARDWARE_CONTROLLER, "Interrupt enable"},
 
-    /* GameBoy Color provides six extra banks of memory that can be paged out through the $DXXX 
-     * memory space, but the timing of that does not correspond with blanks, which is when achievements 
+    /* GameBoy Color provides six extra banks of memory that can be paged out through the $DXXX
+     * memory space, but the timing of that does not correspond with blanks, which is when achievements
      * are processed. As such, it is desirable to always have access to these extra banks. We do this
      * by expecting the extra banks to be addressable at addresses not supported by the native system. */
     { 0x010000U, 0x015FFFU, 0x010000U, RC_MEMORY_TYPE_SYSTEM_RAM, "System RAM (banks 2-7, GBC only)" }
@@ -476,6 +476,14 @@ static const rc_memory_region_t _rc_memory_regions_playstation2[] = {
 };
 static const rc_memory_regions_t rc_memory_regions_playstation2 = { _rc_memory_regions_playstation2, 2 };
 
+/* ===== PlayStation Portable ===== */
+/* https://github.com/uofw/upspd/wiki/Memory-map */
+static const rc_memory_region_t _rc_memory_regions_psp[] = {
+    { 0x00000000U, 0x007FFFFFU, 0x08000000U, RC_MEMORY_TYPE_SYSTEM_RAM, "Kernel RAM" },
+    { 0x00800000U, 0x01FFFFFFU, 0x08800000U, RC_MEMORY_TYPE_SYSTEM_RAM, "System RAM" },
+};
+static const rc_memory_regions_t rc_memory_regions_psp = { _rc_memory_regions_psp, 2 };
+
 /* ===== Pokemon Mini ===== */
 /* https://www.pokemon-mini.net/documentation/memory-map/ */
 static const rc_memory_region_t _rc_memory_regions_pokemini[] = {
@@ -649,7 +657,7 @@ const rc_memory_regions_t* rc_console_memory_regions(int console_id)
 
     case RC_CONSOLE_MEGA_DRIVE:
     case RC_CONSOLE_SEGA_32X:
-      /* NOTE: 32x adds an extra 512KB of memory (256KB RAM + 256KB VRAM) to the 
+      /* NOTE: 32x adds an extra 512KB of memory (256KB RAM + 256KB VRAM) to the
        *       Genesis, but we currently don't support it. */
       return &rc_memory_regions_megadrive;
 
@@ -685,6 +693,9 @@ const rc_memory_regions_t* rc_console_memory_regions(int console_id)
 
     case RC_CONSOLE_PLAYSTATION_2:
       return &rc_memory_regions_playstation2;
+
+    case RC_CONSOLE_PSP:
+      return &rc_memory_regions_psp;
 
     case RC_CONSOLE_POKEMON_MINI:
       return &rc_memory_regions_pokemini;
